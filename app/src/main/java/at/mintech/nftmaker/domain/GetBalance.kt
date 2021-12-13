@@ -7,7 +7,7 @@ import kotlinx.coroutines.withContext
 import java.math.BigInteger
 import java.util.concurrent.Future
 
-internal class GetBalance (
+class GetBalance (
     private val token: MyToken
 ) : AsyncUseCase<BigInteger, String>() {
     override suspend fun run(params: String) = Result.runCatching {

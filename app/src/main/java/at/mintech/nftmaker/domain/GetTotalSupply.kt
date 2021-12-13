@@ -7,7 +7,7 @@ import kotlinx.coroutines.withContext
 import java.math.BigInteger
 import java.util.concurrent.Future
 
-internal class GetTotalSupply(
+class GetTotalSupply(
     private val token: MyToken
 ) : AsyncUseCase<BigInteger, Unit>() {
     override suspend fun run(params: Unit) = Result.runCatching {

@@ -10,23 +10,16 @@ import kotlinx.coroutines.withContext
 import org.web3j.protocol.core.methods.response.TransactionReceipt
 import java.math.BigInteger
 
-internal class TransferToken(
+class TransferToken(
     private val token: MyToken
 ) : AsyncUseCase<Boolean, Int>() {
     override suspend fun run(params: Int) = Result.runCatching {
         withContext(Dispatchers.Main) {
 
-            val approve: CompletableFuture<TransactionReceipt> =
-                token.approve(ACCOUNT_RECEIVER, BigInteger.valueOf(params.toLong())).sendAsync()
-            val approveResult = approve.get()
-            val ok = approveResult.isStatusOK
-
             val transfer: CompletableFuture<TransactionReceipt> =
-                token.transferFrom( ACCOUNT_SENDER, ACCOUNT_RECEIVER, BigInteger.valueOf(params.toLong())).sendAsync()
+                token.transfer(ACCOUNT_RECEIVER, BigInteger.valueOf(params.toLong())).sendAsync()
 
             val convert: TransactionReceipt = transfer.get()
-            val approves = token.getApprovalEvents(convert)
-
             convert.isStatusOK
         }
     }

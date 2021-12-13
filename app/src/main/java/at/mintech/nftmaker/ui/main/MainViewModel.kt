@@ -14,18 +14,18 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import java.math.BigInteger
 
-internal data class MainViewModelState(
+data class MainViewModelState(
     val totalSupply: BigInteger = BigInteger.valueOf(0),
     val creatorAccountBalance: BigInteger = BigInteger.valueOf(0),
     val receiverAccountBalance: BigInteger = BigInteger.valueOf(0),
     val nftUrl: String = ""
 )
 
-internal sealed class MainViewModelSideEffects {
+sealed class MainViewModelSideEffects {
     object Loading : MainViewModelSideEffects()
 }
 
-internal class MainViewModel(
+class MainViewModel(
     private val ipfsManager: IpfsManager,
     private val getTotalSupply: GetTotalSupply,
     private val getBalance: GetBalance,

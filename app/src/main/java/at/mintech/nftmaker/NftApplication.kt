@@ -2,6 +2,7 @@ package at.mintech.nftmaker
 
 import android.app.Application
 import at.mintech.nftmaker.di.appModule
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 class NftApplication : Application() {
@@ -10,7 +11,7 @@ class NftApplication : Application() {
         super.onCreate()
         // Start Koin
         startKoin{
-            //androidContext(this@NftApplication)
+            androidContext(this@NftApplication)
             modules(appModule)
         }
     }
