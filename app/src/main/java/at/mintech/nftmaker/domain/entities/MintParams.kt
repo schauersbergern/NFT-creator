@@ -1,6 +1,7 @@
 package at.mintech.nftmaker.domain.entities
 
 data class MintParams(
-    val ipfsHash: String,
-    val address: String
+    val address: String,
+    val tokenId: Int,
+    val nftUrl: String
 )

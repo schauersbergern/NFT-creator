@@ -3,6 +3,7 @@ package at.mintech.nftmaker.di
 import android.content.Context
 import at.mintech.nftmaker.StartViewModel
 import at.mintech.nftmaker.contracts.MyToken
+import at.mintech.nftmaker.contracts.NFTContract
 import at.mintech.nftmaker.contracts.NFToken
 import at.mintech.nftmaker.data.IpfsManager
 import at.mintech.nftmaker.domain.*
@@ -40,7 +41,7 @@ val appModule = module {
         )
     }
     single {
-        NFToken.load(
+        NFTContract.load(
             NFTOKEN_CONTRACT_ADDRESS,
             Web3j.build(InfuraHttpService(INFURA_RINKBY_URL)),
             CREDENTIALS,

@@ -41,6 +41,13 @@ class MainViewModel(
         }
     }
 
+    //TODO: helper, remove
+    fun setIpfsUrl(url: String) = intent {
+        reduce {
+            state.copy(nftUrl = url)
+        }
+    }
+
     fun getTotalSupply() = intent {
         getTotalSupply(Unit).onSuccess {
             reduce {

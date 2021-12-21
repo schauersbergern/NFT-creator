@@ -39,8 +39,9 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
 
         binding.uploadButton.setOnClickListener {
-            val intent = Intent().setType("*/*").setAction(Intent.ACTION_GET_CONTENT)
-            resultLauncher.launch(Intent.createChooser(intent, "Select a file"))
+            //val intent = Intent().setType("*/*").setAction(Intent.ACTION_GET_CONTENT)
+            //resultLauncher.launch(Intent.createChooser(intent, "Select a file"))
+            viewModel.setIpfsUrl("https://ipfs.io/ipfs/QmX5tBwxn6Mw1XL9Ez7ynAykDdsaiQf25JuaC7YAf51YHk")
         }
 
         binding.getTokenButton.setOnClickListener {
