@@ -1,3 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">NFT Maker</string>
+    <string name="tokens">Tokens</string>
+    <string name="my_nfts">My NFTs</string>
+    <string name="create_nft">Create NFT</string>
+    <string name="total_token_supply">Total Token supply:</string>
+    <string name="token_amount_creator">Token amount creator:</string>
+    <string name="token_amount_receiver">Token amount receiver:</string>
+    <string name="transfer_200_token">Transfer 200 Token</string>
 </resources>

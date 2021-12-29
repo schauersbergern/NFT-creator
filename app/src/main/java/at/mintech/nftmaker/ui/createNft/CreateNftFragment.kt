@@ -1,4 +1,4 @@
-package at.mintech.nftmaker.ui.main
+package at.mintech.nftmaker.ui.createNft
 
 import android.app.Activity
 import android.content.Intent
@@ -10,15 +10,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import at.mintech.nftmaker.R
+import at.mintech.nftmaker.databinding.CreateNftFragmentBinding
 import kotlinx.coroutines.flow.collect
-import at.mintech.nftmaker.databinding.MainFragmentBinding
 import at.mintech.nftmaker.helper.delegates.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainFragment : Fragment(R.layout.main_fragment) {
+class CreateNftFragment : Fragment(R.layout.create_nft_fragment) {
 
-    private val viewModel by viewModel<MainViewModel>()
-    private val binding by viewBinding(MainFragmentBinding::bind)
+    private val viewModel by viewModel<CreateNftViewModel>()
+    private val binding by viewBinding(CreateNftFragmentBinding::bind)
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -90,7 +90,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     }
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = CreateNftFragment()
         const val ERROR_BTN_TEXT = "OK"
     }
 

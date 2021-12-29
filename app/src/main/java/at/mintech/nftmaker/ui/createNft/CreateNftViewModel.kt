@@ -1,4 +1,4 @@
-package at.mintech.nftmaker.ui.main
+package at.mintech.nftmaker.ui.createNft
 
 import androidx.lifecycle.ViewModel
 import at.mintech.nftmaker.data.IpfsManager
@@ -31,7 +31,7 @@ sealed class MainViewModelSideEffects {
     data class ShowError(val error: String) : MainViewModelSideEffects()
 }
 
-internal class MainViewModel(
+internal class CreateNftViewModel(
     private val ipfsManager: IpfsManager,
     private val getTotalSupply: GetTotalSupply,
     private val getBalance: GetBalance,

@@ -1,40 +1,44 @@
 package at.mintech.nftmaker
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.lifecycleScope
-import at.mintech.nftmaker.StartSideEffect.StartScan
-import at.mintech.nftmaker.StartSideEffect.StartNFT
-import at.mintech.nftmaker.helper.navigation.Navigator
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlinx.coroutines.flow.collect
+import at.mintech.nftmaker.databinding.MainActivityBinding
+import at.mintech.nftmaker.ui.createNft.CreateNftFragment
+import at.mintech.nftmaker.ui.displayNfts.DisplayNftsFragment
+import at.mintech.nftmaker.ui.token.TokenFragment
 
 class MainActivity : FragmentActivity() {
 
-    private val viewModel by viewModel<StartViewModel>()
+    private lateinit var binding: MainActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
-        if (savedInstanceState == null) {
-            Navigator.showSplashFragment(supportFragmentManager)
-        }
-    }
+        binding = MainActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-    override fun onStart() {
-        super.onStart()
-        observeSideEffects()
-        viewModel.getAddress()
-    }
+        val createNftFragment = CreateNftFragment.newInstance()
+        val displayNftsFragment = DisplayNftsFragment.newInstance()
+        val tokenFragment = TokenFragment.newInstance()
 
-    private fun observeSideEffects() {
-        lifecycleScope.launchWhenCreated {
-            viewModel.container.sideEffectFlow.collect {
-                when (it) {
-                    is StartScan -> Navigator.showScanFragment(supportFragmentManager)
-                    is StartNFT -> Navigator.showNftFragment(supportFragmentManager)
-                }
+        setCurrentFragment(createNftFragment)
+
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when( it.itemId ) {
+                R.id.upload_nft->setCurrentFragment(createNftFragment)
+                R.id.my_nfts->setCurrentFragment(displayNftsFragment)
+                R.id.token_demo->setCurrentFragment(tokenFragment)
+
             }
+            true
         }
     }
+
+    private fun setCurrentFragment(fragment: Fragment) =
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.flFragment,fragment)
+            commit()
+        }
+
 }

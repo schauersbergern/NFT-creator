@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/upload_nft"
+        android:title="@string/create_nft"
+        android:icon="@drawable/ic_upload"/>
+    <item
+        android:id="@+id/my_nfts"
+        android:title="@string/my_nfts"
+        android:icon="@drawable/ic_asset_collection"/>
+    <item
+        android:id="@+id/token_demo"
+        android:title="@string/tokens"
+        android:icon="@drawable/ic_coins"/>
+</menu>

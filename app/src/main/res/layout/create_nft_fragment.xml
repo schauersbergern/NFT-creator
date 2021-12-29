@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="50dp"
-    tools:context=".ui.main.MainFragment">
+    tools:context=".ui.createNft.CreateNftFragment">
 
     <LinearLayout
         android:id="@+id/total_supply_wrapper"
@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="Total Token supply:"/>
+            android:text="@string/total_token_supply"/>
 
         <TextView
             android:id="@+id/token_amount"
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="Token amount creator:"/>
+            android:text="@string/token_amount_creator"/>
 
         <TextView
             android:id="@+id/creator_token_amount"
@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="Token amount receiver:"/>
+            android:text="@string/token_amount_receiver"/>
 
         <TextView
             android:id="@+id/receiver_token_amount"
@@ -91,7 +91,7 @@
         android:id="@+id/get_token_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Transfer 200 Token"
+        android:text="@string/transfer_200_token"
         android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toTopOf="@id/upload_button"
         app:layout_constraintRight_toRightOf="parent"
@@ -101,7 +101,7 @@
         android:id="@+id/upload_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create NFT"
+        android:text="@string/create_nft"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
