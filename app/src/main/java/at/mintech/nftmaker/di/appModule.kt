@@ -24,6 +24,8 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.infura.InfuraHttpService
+import org.web3j.tx.gas.ContractGasProvider
+import org.web3j.tx.gas.DefaultGasProvider
 
 const val SHARED_PREFS_NAME = "shared_preferences"
 
@@ -36,8 +38,7 @@ val appModule = module {
             MYTOKEN_CONTRACT_ADDRESS,
             Web3j.build(InfuraHttpService(INFURA_RINKBY_URL)),
             CREDENTIALS,
-            GAS_LIMIT,
-            GAS_PRIZE
+            DefaultGasProvider()
         )
     }
     single {
@@ -45,8 +46,7 @@ val appModule = module {
             NFTOKEN_CONTRACT_ADDRESS,
             Web3j.build(InfuraHttpService(INFURA_RINKBY_URL)),
             CREDENTIALS,
-            GAS_LIMIT,
-            GAS_PRIZE
+            DefaultGasProvider()
         )
     }
 
@@ -54,7 +54,7 @@ val appModule = module {
         androidApplication().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
     }
 
-    viewModel { MainViewModel(get(), get(), get(), get()) }
+    viewModel { MainViewModel(get(), get(), get(), get(), get(), get()) }
     viewModel { StartViewModel(get()) }
     viewModel { ScanViewModel() }
 
@@ -68,9 +68,5 @@ val appModule = module {
     factory { TransferNft(get()) }
     factory { MintNft(get()) }
 
-    factory {
-        Navigator(
-
-        )
-    }
+    factory { Navigator() }
 }
