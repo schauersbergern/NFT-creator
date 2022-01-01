@@ -4,6 +4,8 @@
     <string name="tokens">Tokens</string>
     <string name="my_nfts">My NFTs</string>
     <string name="create_nft">Create NFT</string>
+    <string name="ipfs_upload">Choose file for upload</string>
+    <string name="mint_nft">Mint NFT</string>
     <string name="total_token_supply">Total Token supply:</string>
     <string name="token_amount_creator">Token amount creator:</string>
     <string name="token_amount_receiver">Token amount receiver:</string>

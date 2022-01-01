@@ -17,7 +17,7 @@ class IpfsManager( private val address: MultiAddress ) {
     fun addFile(name : String, data: ByteArray) : String {
         val file = NamedStreamable.ByteArrayWrapper(name, data)
         try {
-            val addResult: MerkleNode = ipfsClient.add(file).get(0)
+            val addResult: MerkleNode = ipfsClient.add(file)[0]
             return addResult.hash.toBase58()
         } catch (e: IOException) {
             e.printStackTrace()

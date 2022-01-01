@@ -15,6 +15,7 @@ import at.mintech.nftmaker.helper.config.*
 import at.mintech.nftmaker.helper.navigation.Navigator
 import at.mintech.nftmaker.ui.createNft.CreateNftViewModel
 import at.mintech.nftmaker.ui.scan.ScanViewModel
+import at.mintech.nftmaker.ui.token.TokenViewModel
 import io.ipfs.multiaddr.MultiAddress
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -51,7 +52,8 @@ val appModule = module {
         androidApplication().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
     }
 
-    viewModel { CreateNftViewModel(get(), get(), get(), get(), get(), get()) }
+    viewModel { CreateNftViewModel(get(), get(), get(), get()) }
+    viewModel { TokenViewModel(get(), get(), get()) }
     viewModel { StartViewModel(get()) }
     viewModel { ScanViewModel() }
 
@@ -61,9 +63,9 @@ val appModule = module {
     factory { GetTotalSupply(get()) }
     factory { GetBalance(get()) }
     factory { TransferToken(get()) }
-
     factory { TransferNft(get()) }
     factory { MintNft(get()) }
+    factory { GetImageBmp() }
 
     factory { Navigator() }
 }

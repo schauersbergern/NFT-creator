@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_coins.xml" value="0.19444444444444445" />
+        <entry key="app/src/main/res/drawable/ic_preview_pdf.xml" value="0.24895833333333334" />
+        <entry key="app/src/main/res/drawable/ic_upload.xml" value="0.19444444444444445" />
         <entry key="app/src/main/res/layout/create_nft_fragment.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/display_nfts_fragment.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/main_fragment.xml" value="0.17300724637681159" />
