@@ -1,13 +1,15 @@
 package at.mintech.nftmaker.ui.createNft
 
-import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 import at.mintech.nftmaker.data.IpfsManager
 import at.mintech.nftmaker.domain.GetImageBmp
 import at.mintech.nftmaker.domain.GetUserAddress
 import at.mintech.nftmaker.domain.MintNft
+import at.mintech.nftmaker.domain.PersistNft
 import at.mintech.nftmaker.domain.entities.MintParams
 import at.mintech.nftmaker.helper.config.IPFS_URL
+import at.mintech.nftmaker.helper.config.toNft
+import kotlinx.serialization.Serializable
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -17,8 +19,7 @@ import java.math.BigInteger
 
 data class CreateNftViewModelState(
     val nftUrl: String = "",
-    val fileType: String = "",
-    val previewBmp: Bitmap? = null
+    val fileType: String = ""
 )
 
 sealed class CreateNftViewModelSideEffects {
@@ -32,7 +33,7 @@ internal class CreateNftViewModel(
     private val ipfsManager: IpfsManager,
     private val getUserAddress: GetUserAddress,
     private val mintNft: MintNft,
-    private val getImageBmp: GetImageBmp
+    private val persistNft: PersistNft
 ) : ViewModel(), ContainerHost<CreateNftViewModelState, CreateNftViewModelSideEffects> {
 
     override val container =
@@ -58,7 +59,7 @@ internal class CreateNftViewModel(
                 state.nftUrl
             )
         ).fold(
-            { postSideEffect(CreateNftViewModelSideEffects.NftMinted) },
+            { persistNft(state.toNft()).onSuccess { postSideEffect(CreateNftViewModelSideEffects.NftMinted) } },
             { postSideEffect(CreateNftViewModelSideEffects.ShowError(it.message ?: DEFAULT_ERROR_MSG)) }
         )
 

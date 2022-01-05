@@ -11,5 +11,4 @@ class GetUserAddress(private val sp : SharedPreferences) : AsyncUseCase<String, 
             sp.getString("userAddress" , null) ?: ""
         }
     }
-
 }

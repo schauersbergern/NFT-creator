@@ -14,6 +14,7 @@ import at.mintech.nftmaker.domain.TransferNft
 import at.mintech.nftmaker.helper.config.*
 import at.mintech.nftmaker.helper.navigation.Navigator
 import at.mintech.nftmaker.ui.createNft.CreateNftViewModel
+import at.mintech.nftmaker.ui.displayNfts.DisplayNftsViewModel
 import at.mintech.nftmaker.ui.scan.ScanViewModel
 import at.mintech.nftmaker.ui.token.TokenViewModel
 import io.ipfs.multiaddr.MultiAddress
@@ -54,6 +55,7 @@ val appModule = module {
 
     viewModel { CreateNftViewModel(get(), get(), get(), get()) }
     viewModel { TokenViewModel(get(), get(), get()) }
+    viewModel { DisplayNftsViewModel(get(), get()) }
     viewModel { StartViewModel(get()) }
     viewModel { ScanViewModel() }
 
@@ -66,6 +68,8 @@ val appModule = module {
     factory { TransferNft(get()) }
     factory { MintNft(get()) }
     factory { GetImageBmp() }
+    factory { GetPersistedNfts(get(named(SHARED_PREFS_NAME))) }
+    factory { PersistNft(get(named(SHARED_PREFS_NAME))) }
 
     factory { Navigator() }
 }

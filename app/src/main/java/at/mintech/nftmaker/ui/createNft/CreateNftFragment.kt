@@ -92,7 +92,6 @@ class CreateNftFragment : Fragment(R.layout.create_nft_fragment) {
     private fun observeState() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.container.stateFlow.collect { state ->
-                state.previewBmp?.let { setPreviewImg(it) }
                 if (state.nftUrl != "") {
                     uiForMinting()
                 } else {
@@ -100,10 +99,6 @@ class CreateNftFragment : Fragment(R.layout.create_nft_fragment) {
                 }
             }
         }
-    }
-
-    private fun setPreviewImg(bmp : Bitmap) {
-        binding.nftView.setImageBitmap(bmp)
     }
 
     private fun uiForIpfsUpload() {
