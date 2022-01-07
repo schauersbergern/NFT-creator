@@ -4,6 +4,29 @@ plugins {
     id "kotlinx-serialization"
 }
 
+def propFile = new File('secret.properties')
+Properties props = new Properties()
+// Check if the file exists
+if (propFile.canRead()) {
+    //Load the file
+    props.load(new FileInputStream(propFile))
+    // If we found the file lets read in all the keys and values and add those to the buildConfig section of our template.
+    if (props != null) {
+        android.buildTypes.all {
+            buildType ->
+                props.any {
+                    property ->
+                        buildType.buildConfigField "String", property.key, "\"${property.value}\""
+                }
+        }
+    } else {
+        throw new InvalidUserDataException('secret.properties found but some entries are missing')
+    }
+} else {
+    // The properties file was not found
+    throw new MissingResourceException('secret.properties not found')
+}
+
 android {
     compileSdkVersion 32
     buildToolsVersion "30.0.3"
