@@ -5,8 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="50dp"
     tools:context=".ui.createNft.CreateNftFragment">
+
+    <TextView
+        style="@style/headline"
+        android:id="@+id/createNftHeadline"
+        android:layout_width="match_parent"
+        android:text="@string/create_your_nft"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/nft_view"/>
 
     <ImageView
         android:id="@+id/nft_view"
@@ -14,7 +24,7 @@
         android:layout_height="400dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/createNftHeadline"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
@@ -26,26 +36,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
-    <LinearLayout
-        android:id="@+id/progressWrapper"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            style="Widget.MaterialComponents.CircularProgressIndicator.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            />
-
-    </LinearLayout>
+    <include layout="@layout/loading_indicator" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

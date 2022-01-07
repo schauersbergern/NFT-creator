@@ -10,4 +10,6 @@
     <string name="token_amount_creator">Token amount creator:</string>
     <string name="token_amount_receiver">Token amount receiver:</string>
     <string name="transfer_200_token">Transfer 200 Token</string>
+    <string name="create_your_nft">Create your NFT</string>
+    <string name="transfer_token">Transfer Token</string>
 </resources>

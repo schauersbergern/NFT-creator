@@ -19,6 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import at.mintech.nftmaker.R
 import at.mintech.nftmaker.databinding.CreateNftFragmentBinding
+import at.mintech.nftmaker.databinding.LoadingIndicatorBinding
 import at.mintech.nftmaker.helper.config.SUPPORTED_FILE_TYPES
 import at.mintech.nftmaker.helper.config.getFileType
 import kotlinx.coroutines.flow.collect
@@ -31,6 +32,7 @@ class CreateNftFragment : Fragment(R.layout.create_nft_fragment) {
     private var _binding: CreateNftFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var loadingIndicator : LoadingIndicatorBinding
 
     private val ipfsUploadListener : (View) -> Unit = {
         val intent = Intent().setType("*/*").setAction(Intent.ACTION_GET_CONTENT)
@@ -47,6 +49,7 @@ class CreateNftFragment : Fragment(R.layout.create_nft_fragment) {
         savedInstanceState: Bundle?
     ): View {
         _binding = CreateNftFragmentBinding.inflate(inflater, container, false)
+        loadingIndicator = LoadingIndicatorBinding.bind(binding.root)
         return binding.root
     }
 
@@ -142,11 +145,11 @@ class CreateNftFragment : Fragment(R.layout.create_nft_fragment) {
     }
 
     private fun hideLoading() {
-        binding.progressWrapper.visibility = View.GONE
+        loadingIndicator.progressWrapper.visibility = View.GONE
     }
 
     private fun showLoading() {
-        binding.progressWrapper.visibility = View.VISIBLE
+        loadingIndicator.progressWrapper.visibility = View.VISIBLE
     }
 
     private fun showError(error: String) {

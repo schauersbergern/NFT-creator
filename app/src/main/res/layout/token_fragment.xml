@@ -5,8 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="50dp"
     tools:context=".ui.createNft.CreateNftFragment">
+
+    <TextView
+        style="@style/headline"
+        android:id="@+id/createNftHeadline"
+        android:layout_width="match_parent"
+        android:text="@string/transfer_token"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/total_supply_wrapper"/>
 
     <LinearLayout
         android:id="@+id/total_supply_wrapper"
@@ -14,7 +24,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/createNftHeadline"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
@@ -96,5 +108,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
 
+    <include layout="@layout/loading_indicator" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

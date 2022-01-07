@@ -8,8 +8,9 @@
         <entry key="app/src/main/res/drawable/ic_upload.xml" value="0.19444444444444445" />
         <entry key="app/src/main/res/layout/bottom_navigation_fragment.xml" value="0.23958333333333334" />
         <entry key="app/src/main/res/layout/create_nft_fragment.xml" value="0.2515625" />
-        <entry key="app/src/main/res/layout/display_nfts_fragment.xml" value="0.2515625" />
+        <entry key="app/src/main/res/layout/display_nfts_fragment.xml" value="0.1881918819188192" />
         <entry key="app/src/main/res/layout/fragment_bottom_navigation.xml" value="0.2171875" />
+        <entry key="app/src/main/res/layout/loading_indicator.xml" value="0.19427083333333334" />
         <entry key="app/src/main/res/layout/main_activity.xml" value="0.225" />
         <entry key="app/src/main/res/layout/main_fragment.xml" value="0.17300724637681159" />
         <entry key="app/src/main/res/layout/nft_list_item.xml" value="0.196875" />

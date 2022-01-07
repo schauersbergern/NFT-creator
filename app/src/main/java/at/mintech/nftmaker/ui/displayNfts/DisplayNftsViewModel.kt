@@ -8,6 +8,7 @@ import at.mintech.nftmaker.domain.entities.DisplayNft
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
@@ -15,7 +16,10 @@ data class DisplayNftsState(
     val displayNfts: List<DisplayNft> = listOf()
 )
 
-sealed class DisplayNftsSideEffects
+sealed class DisplayNftsSideEffects {
+    object ContentLoading : DisplayNftsSideEffects()
+    object ContentLoaded : DisplayNftsSideEffects()
+}
 
 internal class DisplayNftsViewModel(
     private val getPersistedNfts: GetPersistedNfts,
@@ -32,6 +36,7 @@ internal class DisplayNftsViewModel(
     }
 
     private fun fetchNfts() = intent {
+        postSideEffect(DisplayNftsSideEffects.ContentLoading)
         getPersistedNfts(Unit).onSuccess {
 
             val displayNfts = mutableListOf<DisplayNft>()
@@ -48,6 +53,7 @@ internal class DisplayNftsViewModel(
             reduce {
                 state.copy(displayNfts = displayNfts)
             }
+            postSideEffect(DisplayNftsSideEffects.ContentLoaded)
         }
     }
 
