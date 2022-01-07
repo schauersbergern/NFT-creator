@@ -1,19 +1,35 @@
 package at.mintech.nftmaker.ui.token
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import at.mintech.nftmaker.R
 import at.mintech.nftmaker.databinding.TokenFragmentBinding
-import at.mintech.nftmaker.helper.delegates.viewBinding
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TokenFragment : Fragment(R.layout.token_fragment) {
 
     private val viewModel by viewModel<TokenViewModel>()
-    private val binding by viewBinding(TokenFragmentBinding::bind)
+    private var _binding: TokenFragmentBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = TokenFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

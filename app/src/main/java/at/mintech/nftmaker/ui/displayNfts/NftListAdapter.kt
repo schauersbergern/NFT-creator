@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import at.mintech.nftmaker.R
@@ -13,6 +14,7 @@ class NftListAdapter(private val nftList: List<DisplayNft>) : RecyclerView.Adapt
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var nftImage: ImageView = view.findViewById(R.id.nft_view) as ImageView
+        var nftText: TextView = view.findViewById(R.id.nft_text) as TextView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,6 +31,8 @@ class NftListAdapter(private val nftList: List<DisplayNft>) : RecyclerView.Adapt
             "mp4" -> image.setImageDrawable(ContextCompat.getDrawable(image.context,  R.drawable.ic_preview_video))
             "jpeg", "jpg", "png" -> image.setImageBitmap(nft.bitmap)
         }
+
+        holder.nftText.setText("Nft ${position}")
     }
 
     override fun getItemCount(): Int {

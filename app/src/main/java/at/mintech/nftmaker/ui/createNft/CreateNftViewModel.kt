@@ -25,7 +25,6 @@ data class CreateNftViewModelState(
 sealed class CreateNftViewModelSideEffects {
     object Loading : CreateNftViewModelSideEffects()
     object ContentLoaded : CreateNftViewModelSideEffects()
-    object NftMinted : CreateNftViewModelSideEffects()
     data class ShowError(val error: String) : CreateNftViewModelSideEffects()
 }
 
@@ -59,7 +58,9 @@ internal class CreateNftViewModel(
                 state.nftUrl
             )
         ).fold(
-            { persistNft(state.toNft()).onSuccess { postSideEffect(CreateNftViewModelSideEffects.NftMinted) } },
+            { persistNft(state.toNft()).onSuccess {
+                reduce { state.copy(nftUrl = "", fileType = "") }
+            } },
             { postSideEffect(CreateNftViewModelSideEffects.ShowError(it.message ?: DEFAULT_ERROR_MSG)) }
         )
 

@@ -1,44 +1,41 @@
 package at.mintech.nftmaker
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.lifecycleScope
 import at.mintech.nftmaker.databinding.MainActivityBinding
-import at.mintech.nftmaker.ui.createNft.CreateNftFragment
-import at.mintech.nftmaker.ui.displayNfts.DisplayNftsFragment
-import at.mintech.nftmaker.ui.token.TokenFragment
+import at.mintech.nftmaker.helper.navigation.Navigator
+import kotlinx.coroutines.flow.collect
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : FragmentActivity() {
 
+    private val viewModel by viewModel<StartViewModel>()
     private lateinit var binding: MainActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val createNftFragment = CreateNftFragment.newInstance()
-        val displayNftsFragment = DisplayNftsFragment.newInstance()
-        val tokenFragment = TokenFragment.newInstance()
-
-        setCurrentFragment(createNftFragment)
-
-        binding.bottomNavigationView.setOnItemSelectedListener {
-            when( it.itemId ) {
-                R.id.upload_nft->setCurrentFragment(createNftFragment)
-                R.id.my_nfts->setCurrentFragment(displayNftsFragment)
-                R.id.token_demo->setCurrentFragment(tokenFragment)
-
-            }
-            true
-        }
+        Navigator.showSplashFragment(supportFragmentManager)
+        observeEvents()
+        viewModel.getAddress()
     }
 
-    private fun setCurrentFragment(fragment: Fragment) =
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment,fragment)
-            commit()
+    private fun observeEvents() {
+        lifecycleScope.launchWhenCreated {
+            viewModel.container.sideEffectFlow.collect {
+                when (it) {
+                    StartSideEffect.StartScan -> {
+                        Navigator.showScanFragment(supportFragmentManager)
+                    }
+                    StartSideEffect.StartNFT -> {
+                        Navigator.showBottomNavigationFragment(supportFragmentManager)
+                    }
+                }
+            }
         }
+    }
 
 }

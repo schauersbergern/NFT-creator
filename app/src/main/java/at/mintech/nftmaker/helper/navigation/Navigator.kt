@@ -1,29 +1,28 @@
 package at.mintech.nftmaker.helper.navigation
 
-import androidx.fragment.app.FragmentManager
 import at.mintech.nftmaker.R
-import at.mintech.nftmaker.ui.createNft.CreateNftFragment
+import at.mintech.nftmaker.ui.bottomNavigation.BottomNavigationFragment
 import at.mintech.nftmaker.ui.scan.ScanFragment
 import at.mintech.nftmaker.ui.splash.SplashFragment
+import androidx.fragment.app.FragmentManager
 
 class Navigator {
     companion object {
-        fun showSplashFragment(fragmentManager: FragmentManager) {
+        fun showSplashFragment(fragmentManager: FragmentManager) =
             fragmentManager.beginTransaction()
                 .replace(R.id.container, SplashFragment.newInstance())
                 .commitNow()
-        }
 
-        fun showScanFragment(fragmentManager: FragmentManager) {
+
+        fun showScanFragment(fragmentManager: FragmentManager) =
             fragmentManager.beginTransaction()
                 .replace(R.id.container, ScanFragment.newInstance())
                 .commitNow()
-        }
 
-        fun showNftFragment(fragmentManager: FragmentManager) {
+
+        fun showBottomNavigationFragment(fragmentManager: FragmentManager) =
             fragmentManager.beginTransaction()
-                .replace(R.id.container, CreateNftFragment.newInstance())
+                .replace(R.id.container, BottomNavigationFragment.newInstance())
                 .commitNow()
-        }
     }
 }

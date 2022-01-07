@@ -8,8 +8,10 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -20,13 +22,14 @@ import at.mintech.nftmaker.databinding.CreateNftFragmentBinding
 import at.mintech.nftmaker.helper.config.SUPPORTED_FILE_TYPES
 import at.mintech.nftmaker.helper.config.getFileType
 import kotlinx.coroutines.flow.collect
-import at.mintech.nftmaker.helper.delegates.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CreateNftFragment : Fragment(R.layout.create_nft_fragment) {
 
     private val viewModel by viewModel<CreateNftViewModel>()
-    private val binding by viewBinding(CreateNftFragmentBinding::bind)
+
+    private var _binding: CreateNftFragmentBinding? = null
+    private val binding get() = _binding!!
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     private val ipfsUploadListener : (View) -> Unit = {
@@ -36,6 +39,20 @@ class CreateNftFragment : Fragment(R.layout.create_nft_fragment) {
 
     private val mintNftListener : (View) -> Unit = {
         viewModel.mintNft()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = CreateNftFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -119,7 +136,6 @@ class CreateNftFragment : Fragment(R.layout.create_nft_fragment) {
                     CreateNftViewModelSideEffects.ContentLoaded -> hideLoading()
                     CreateNftViewModelSideEffects.Loading -> showLoading()
                     is CreateNftViewModelSideEffects.ShowError -> showError(sideEffect.error)
-                    CreateNftViewModelSideEffects.NftMinted -> uiForIpfsUpload()
                 }
             }
         }
