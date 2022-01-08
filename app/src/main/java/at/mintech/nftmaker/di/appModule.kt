@@ -54,7 +54,7 @@ val appModule = module {
     }
 
     viewModel { CreateNftViewModel(get(), get(), get(), get()) }
-    viewModel { TokenViewModel(get(), get(), get()) }
+    viewModel { TokenViewModel(get(), get()) }
     viewModel { DisplayNftsViewModel(get(), get()) }
     viewModel { StartViewModel(get()) }
     viewModel { ScanViewModel() }
@@ -68,6 +68,7 @@ val appModule = module {
     factory { TransferNft(get()) }
     factory { MintNft(get()) }
     factory { GetImageBmp() }
+    factory { LoadTokenData(get(), get()) }
     factory { GetPersistedNfts(get(named(SHARED_PREFS_NAME))) }
     factory { PersistNft(get(named(SHARED_PREFS_NAME))) }
 

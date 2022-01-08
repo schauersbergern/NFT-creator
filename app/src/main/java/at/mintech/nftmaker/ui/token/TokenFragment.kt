@@ -9,7 +9,6 @@ import androidx.lifecycle.lifecycleScope
 import at.mintech.nftmaker.R
 import at.mintech.nftmaker.databinding.LoadingIndicatorBinding
 import at.mintech.nftmaker.databinding.TokenFragmentBinding
-import at.mintech.nftmaker.ui.displayNfts.DisplayNftsSideEffects
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -44,9 +43,7 @@ class TokenFragment : Fragment(R.layout.token_fragment) {
 
         observeState()
         observeEvents()
-        viewModel.getTotalSupply()
-        viewModel.getCreatorBalance()
-        viewModel.getReceiverBalance()
+        viewModel.init()
     }
 
     private fun observeState() {
@@ -63,8 +60,8 @@ class TokenFragment : Fragment(R.layout.token_fragment) {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.container.sideEffectFlow.collect {
                 when (it) {
-                    DisplayNftsSideEffects.ContentLoading -> showLoading()
-                    DisplayNftsSideEffects.ContentLoaded -> hideLoading()
+                    TokenSideEffects.ContentLoading -> showLoading()
+                    TokenSideEffects.ContentLoaded -> hideLoading()
                 }
             }
         }

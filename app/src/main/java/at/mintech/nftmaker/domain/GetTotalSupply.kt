@@ -11,7 +11,7 @@ class GetTotalSupply(
     private val token: MyToken
 ) : AsyncUseCase<BigInteger, Unit>() {
     override suspend fun run(params: Unit) = Result.runCatching {
-        withContext(Dispatchers.Main) {
+        withContext(Dispatchers.IO) {
             val totalSupply: Future<BigInteger> = token.totalSupply().sendAsync()
             val convertToBigInt: BigInteger = totalSupply.get()
             convertToBigInt

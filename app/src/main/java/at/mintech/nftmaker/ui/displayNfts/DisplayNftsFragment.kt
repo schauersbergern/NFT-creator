@@ -42,6 +42,7 @@ class DisplayNftsFragment : Fragment(R.layout.display_nfts_fragment) {
         super.onViewCreated(view, savedInstanceState)
         observeState()
         observeEvents()
+        viewModel.fetchNfts()
     }
 
     private fun observeState() {

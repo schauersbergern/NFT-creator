@@ -29,13 +29,8 @@ internal class DisplayNftsViewModel(
     override val container =
         container<DisplayNftsState, DisplayNftsSideEffects>(DisplayNftsState())
 
-    init {
-        viewModelScope.launch {
-            fetchNfts()
-        }
-    }
 
-    private fun fetchNfts() = intent {
+    fun fetchNfts() = intent {
         postSideEffect(DisplayNftsSideEffects.ContentLoading)
         getPersistedNfts(Unit).onSuccess {
 

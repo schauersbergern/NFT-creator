@@ -11,7 +11,7 @@ class GetBalance (
     private val token: MyToken
 ) : AsyncUseCase<BigInteger, String>() {
     override suspend fun run(params: String) = Result.runCatching {
-        withContext(Dispatchers.Main) {
+        withContext(Dispatchers.IO) {
             val balanceOf: Future<BigInteger> = token.balanceOf(params).sendAsync()
             val convertedToBigInt: BigInteger = balanceOf.get()
             convertedToBigInt
