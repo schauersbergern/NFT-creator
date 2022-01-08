@@ -102,7 +102,7 @@
         android:id="@+id/get_token_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/transfer_200_token"
+        android:text="@string/transfer_5_token"
         android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"

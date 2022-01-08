@@ -38,7 +38,7 @@ class TokenFragment : Fragment(R.layout.token_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.getTokenButton.setOnClickListener {
-            viewModel.obtainTokens(200)
+            viewModel.obtainTokens(5)
         }
 
         observeState()

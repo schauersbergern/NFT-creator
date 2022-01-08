@@ -32,9 +32,7 @@ internal class TokenViewModel(
     override val container = container<TokenState, TokenSideEffects>(TokenState())
     private var dataJob: Job? = null
 
-    fun init() = intent {
-        loadData()
-    }
+    fun init() = loadData()
 
     fun obtainTokens(amount: Int) = intent {
         postSideEffect(TokenSideEffects.ContentLoading)
