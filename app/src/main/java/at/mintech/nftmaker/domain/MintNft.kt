@@ -11,7 +11,7 @@ internal class MintNft(
     private val nftContract: NFTContract
 ) : AsyncUseCase<TransactionReceipt, MintParams>() {
     override suspend fun run(params: MintParams) = Result.runCatching {
-        withContext(Dispatchers.Main) {
+        withContext(Dispatchers.IO) {
             //val mint = nftContract.mint(params.address, params.tokenId, params.nftUrl).sendAsync()
             //mint.get()
             TransactionReceipt()

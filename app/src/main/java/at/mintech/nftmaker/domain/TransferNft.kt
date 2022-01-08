@@ -10,7 +10,7 @@ internal class TransferNft(
     private val nfToken: NFToken
 ) : AsyncUseCase<Unit, TransferParams>() {
     override suspend fun run(params: TransferParams) = Result.runCatching {
-        withContext(Dispatchers.Main) {
+        withContext(Dispatchers.IO) {
             val transfer = nfToken.transfer(params.address, params.tokenId).sendAsync()
             val result = transfer.get()
         }

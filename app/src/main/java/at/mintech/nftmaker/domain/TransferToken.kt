@@ -14,7 +14,7 @@ class TransferToken(
     private val token: MyToken
 ) : AsyncUseCase<Boolean, Int>() {
     override suspend fun run(params: Int) = Result.runCatching {
-        withContext(Dispatchers.Main) {
+        withContext(Dispatchers.IO) {
 
             val transfer: CompletableFuture<TransactionReceipt> =
                 token.transfer(ACCOUNT_RECEIVER, BigInteger.valueOf(params.toLong())).sendAsync()

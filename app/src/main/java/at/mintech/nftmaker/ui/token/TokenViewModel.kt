@@ -1,8 +1,11 @@
 package at.mintech.nftmaker.ui.token
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import at.mintech.nftmaker.domain.LoadTokenData
 import at.mintech.nftmaker.domain.TransferToken
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
@@ -27,12 +30,14 @@ internal class TokenViewModel(
 ) : ViewModel(), ContainerHost<TokenState, TokenSideEffects> {
 
     override val container = container<TokenState, TokenSideEffects>(TokenState())
+    private var dataJob: Job? = null
 
     fun init() = intent {
         loadData()
     }
 
     fun obtainTokens(amount: Int) = intent {
+        postSideEffect(TokenSideEffects.ContentLoading)
         transfer(amount).onSuccess {
             if (it) {
                 loadData()
@@ -41,12 +46,20 @@ internal class TokenViewModel(
     }
 
     private fun loadData() = intent {
-        postSideEffect(TokenSideEffects.ContentLoading)
-        loadTokenData(Unit).onSuccess {
-            reduce {
-                state.copy(it.totalSupply, it.creatorAccountBalance, it.receiverAccountBalance)
+        dataJob?.cancel()
+        dataJob = viewModelScope.launch {
+            postSideEffect(TokenSideEffects.ContentLoading)
+            loadTokenData(Unit).onSuccess {
+                reduce {
+                    state.copy(it.totalSupply, it.creatorAccountBalance, it.receiverAccountBalance)
+                }
+                postSideEffect(TokenSideEffects.ContentLoaded)
             }
-            postSideEffect(TokenSideEffects.ContentLoaded)
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        dataJob?.cancel()
     }
 }

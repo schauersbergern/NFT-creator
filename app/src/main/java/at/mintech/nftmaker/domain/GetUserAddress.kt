@@ -7,7 +7,7 @@ import kotlinx.coroutines.withContext
 
 class GetUserAddress(private val sp : SharedPreferences) : AsyncUseCase<String, Unit>() {
     override suspend fun run(params: Unit): Result<String> = Result.runCatching {
-        withContext(Dispatchers.Main) {
+        withContext(Dispatchers.IO) {
             sp.getString("userAddress" , null) ?: ""
         }
     }

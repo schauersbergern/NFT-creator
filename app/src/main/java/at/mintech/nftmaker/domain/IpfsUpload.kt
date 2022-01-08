@@ -9,7 +9,7 @@ internal class IpfsUpload(
     private val ipfsManager: IpfsManager
 ) : AsyncUseCase<String, ByteArray>() {
     override suspend fun run(params: ByteArray) = Result.runCatching {
-        withContext(Dispatchers.Main) {
+        withContext(Dispatchers.IO) {
             val hash = ipfsManager.addFile("Testfile", params)
             hash
         }

@@ -11,7 +11,7 @@ import kotlinx.serialization.*
 
 class PersistNft(private val sp : SharedPreferences) : AsyncUseCase<Unit, Nft>() {
     override suspend fun run(params: Nft): Result<Unit> = Result.runCatching {
-        withContext(Dispatchers.Main) {
+        withContext(Dispatchers.IO) {
 
             val nftString = sp.getString(PERSISTED_NFT_KEY,"[]")
             val obj = nftString?.let { Json.decodeFromString<List<Nft>>(it) } as MutableList<Nft>
