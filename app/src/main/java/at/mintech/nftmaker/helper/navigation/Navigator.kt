@@ -11,18 +11,18 @@ class Navigator {
         fun showSplashFragment(fragmentManager: FragmentManager) =
             fragmentManager.beginTransaction()
                 .replace(R.id.container, SplashFragment.newInstance())
-                .commitNow()
+                .commit()
 
 
         fun showScanFragment(fragmentManager: FragmentManager) =
             fragmentManager.beginTransaction()
                 .replace(R.id.container, ScanFragment.newInstance())
-                .commitNow()
+                .commit()
 
 
         fun showBottomNavigationFragment(fragmentManager: FragmentManager) =
             fragmentManager.beginTransaction()
                 .replace(R.id.container, BottomNavigationFragment.newInstance())
-                .commitNow()
+                .commit()
     }
 }

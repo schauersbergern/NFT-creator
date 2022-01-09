@@ -3,7 +3,9 @@ package at.mintech.nftmaker.ui.scan
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -11,7 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import at.mintech.nftmaker.R
 import at.mintech.nftmaker.databinding.ScanFragmentBinding
-import at.mintech.nftmaker.helper.delegates.viewBinding
+import at.mintech.nftmaker.helper.config.showErrorDialog
+import at.mintech.nftmaker.helper.navigation.Navigator
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
@@ -23,13 +26,16 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ScanFragment : Fragment(R.layout.scan_fragment) {
 
     private var codeScanner: CodeScanner? = null
-    private val binding by viewBinding(ScanFragmentBinding::bind)
     private val viewModel by viewModel<ScanViewModel>()
+
+    private var _binding: ScanFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUI()
         observeState()
+        observeEvents()
     }
 
     private fun initUI() {
@@ -44,6 +50,19 @@ class ScanFragment : Fragment(R.layout.scan_fragment) {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.container.stateFlow.collect { state ->
                 binding.ethereumAddress.setText(state.ethereumAddress)
+                if (state.ethereumAddress != "") {
+                    Navigator.showBottomNavigationFragment(requireActivity().supportFragmentManager)
+                }
+            }
+        }
+    }
+
+    private fun observeEvents() {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.container.sideEffectFlow.collect { sideEffect ->
+                when(sideEffect) {
+                    is ScanViewModelSideEffects.ShowError -> showError(sideEffect.error)
+                }
             }
         }
     }
@@ -78,7 +97,6 @@ class ScanFragment : Fragment(R.layout.scan_fragment) {
 
             errorCallback = ErrorCallback {
                 requireActivity().runOnUiThread {
-                    //Todo: Timber
                     Log.e("ScanFragment", "Camera initialization error: ${it.message}")
                 }
             }
@@ -129,6 +147,22 @@ class ScanFragment : Fragment(R.layout.scan_fragment) {
             }
         }
     }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = ScanFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun showError(error: String) = requireContext().showErrorDialog(error)
 
     companion object {
         fun newInstance() = ScanFragment()

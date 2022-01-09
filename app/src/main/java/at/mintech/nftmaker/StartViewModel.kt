@@ -24,7 +24,7 @@ class StartViewModel(
     fun getAddress() = intent {
         getUserAddress(Unit).onSuccess {
             if (it == "") {
-                postSideEffect(StartNFT)
+                postSideEffect(StartScan)
             } else {
                 postSideEffect(StartNFT)
             }

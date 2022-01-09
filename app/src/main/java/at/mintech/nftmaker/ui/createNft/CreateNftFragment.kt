@@ -22,6 +22,7 @@ import at.mintech.nftmaker.databinding.CreateNftFragmentBinding
 import at.mintech.nftmaker.databinding.LoadingIndicatorBinding
 import at.mintech.nftmaker.helper.config.SUPPORTED_FILE_TYPES
 import at.mintech.nftmaker.helper.config.getFileType
+import at.mintech.nftmaker.helper.config.showErrorDialog
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -152,12 +153,7 @@ class CreateNftFragment : Fragment(R.layout.create_nft_fragment) {
         loadingIndicator.progressWrapper.visibility = View.VISIBLE
     }
 
-    private fun showError(error: String) {
-        MaterialAlertDialogBuilder(requireContext())
-            .setMessage(error)
-            .setNegativeButton(ERROR_BTN_TEXT, null)
-            .show()
-    }
+    private fun showError(error: String) = requireContext().showErrorDialog(error)
 
     companion object {
         fun newInstance() = CreateNftFragment()

@@ -6,10 +6,10 @@ import at.mintech.nftmaker.helper.usecase.AsyncUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class GetUserAddress(private val sp : SharedPreferences) : AsyncUseCase<String, Unit>() {
-    override suspend fun run(params: Unit): Result<String> = Result.runCatching {
+class PersistUserAddress (private val sp : SharedPreferences) : AsyncUseCase<Unit, String>() {
+    override suspend fun run(params: String): Result<Unit> = Result.runCatching {
         withContext(Dispatchers.IO) {
-            sp.getString(USER_ADDRESS_KEY , null) ?: ""
+            sp.edit().putString(USER_ADDRESS_KEY, params).apply()
         }
     }
 }
