@@ -16,7 +16,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import at.mintech.nftmaker.R
 import at.mintech.nftmaker.databinding.CreateNftFragmentBinding
 import at.mintech.nftmaker.databinding.LoadingIndicatorBinding

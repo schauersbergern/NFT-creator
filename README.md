@@ -1,8 +1,33 @@
 # Create NFTs and Transfer tokens
 
-This is an Android app where you can upload every resource from your smartphone and turn it into an NFT
+This is an Android app where you can upload every resource from your smartphone and turn it into an NFT  and you easily can deploy your own tokens and transfer them
 
 **Warning: This project is currently using Rinkeby testnet and NOT Ethereum mainnet, so you are actually save from wasting real Ether**
+
+### Technology used:
+
+**Architecture:**
+
+I am strongly dedicated to use **clean architecture** to separate UI, Domain, Datasource and Network logic. I am using the MVI state management approach where the UI observes viewmodel state for updating UI. User interaction triggers events on the viewmodel which also yields UI changes.
+
+**UI:**
+For the UI I use the single Activity multiple Fragment approach where UI logic is only implemented in Fragments (android sdk imports only in Fragments or Activities)
+
+**Domain Logic:**
+Domain logic (like smart contract interaction via network or persisting or fetching data) is implemented in UseCases. For connecting Domain and UI I am going with the Model View Intent (MVI) approach and I am using orbit mvi (https://github.com/orbit-mvi/orbit-mvi) for state management.
+
+**Dependency Injection:**
+In this project I am using Koin (https://github.com/InsertKoinIO/koin) to inject dependencies into viewmodels, usecases, etc. because in my opinion it uses least boilerplate code besides of Dagger and Hilt
+
+**Other Libraries:**
+
+- web3j for smart contract communication:
+  https://github.com/web3j/web3j
+- kotlinx-serialization for serialising data objects to json
+- Java ipfs client for uploading NFT files to IPFS (inter planetary
+  file system) https://github.com/ipfs-shipyard/java-ipfs-http-client
+- QR Code Scanner https://github.com/yuriy-budiyev/code-scanner
+- Vanilla fragment transactions for navigation (no jetpack navigation or much better FragNav https://github.com/ncapdevi/FragNav this time)
 
 ### Getting started:
 
@@ -38,10 +63,12 @@ In the "My NFTs" tab you can admire your NFTs in a list
 **Transfer Token to your address**
 
 In the "Tokens" tab you can see
--  The total amount of "MyToken" with Symbol "MTK" supplied
+- The total amount of "MyToken" with Symbol "MTK" supplied
 - The amount of MTK Token the token creator holds
 - The amount of MTK Token the current user holds
 
 With tapping the "Transfer 5 Token" button you can transfer 5 MTK Token to your current address
 
 ![Transfer 1](/screenshots/transfer1.jpg) ![Transfer 2](/screenshots/transfer2.jpg)
+
+*Props to https://stackedit.io/app where I created this README*
