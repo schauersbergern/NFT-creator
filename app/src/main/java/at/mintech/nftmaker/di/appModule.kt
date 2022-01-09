@@ -64,11 +64,11 @@ val appModule = module {
     factory { IpfsUpload(get()) }
     factory { GetTotalSupply(get()) }
     factory { GetBalance(get()) }
-    factory { TransferToken(get()) }
+    factory { TransferToken(get(), get()) }
     factory { TransferNft(get()) }
-    factory { MintNft(get()) }
+    factory { MintNft(get(), get()) }
     factory { GetImageBmp() }
-    factory { LoadTokenData(get(), get()) }
+    factory { LoadTokenData(get(), get(), get()) }
     factory { TransformToEthereumAddress() }
     factory { PersistUserAddress(get(named(SHARED_PREFS_NAME))) }
     factory { GetPersistedNfts(get(named(SHARED_PREFS_NAME))) }

@@ -2,14 +2,12 @@ package at.mintech.nftmaker.ui.createNft
 
 import androidx.lifecycle.ViewModel
 import at.mintech.nftmaker.data.IpfsManager
-import at.mintech.nftmaker.domain.GetImageBmp
 import at.mintech.nftmaker.domain.GetUserAddress
 import at.mintech.nftmaker.domain.MintNft
 import at.mintech.nftmaker.domain.PersistNft
 import at.mintech.nftmaker.domain.entities.MintParams
 import at.mintech.nftmaker.helper.config.IPFS_URL
 import at.mintech.nftmaker.helper.config.toNft
-import kotlinx.serialization.Serializable
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -40,8 +38,7 @@ internal class CreateNftViewModel(
 
     fun uploadData(data: ByteArray, fileType: String) = intent {
         postSideEffect(CreateNftViewModelSideEffects.Loading)
-        //val ipfsUrl = IPFS_URL + ipfsManager.addFile(FILENAME, data)
-        val ipfsUrl = "https://ipfs.io/ipfs/QmUzR3Riu88brJBEx3Rr4J8EHDi3SSSGH2z4ZyiYVRb6Xp"
+        val ipfsUrl = IPFS_URL + ipfsManager.addFile(FILENAME, data)
         reduce {
             state.copy(nftUrl = ipfsUrl, fileType = fileType)
         }

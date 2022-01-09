@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.*
+import kotlinx.serialization.builtins.ListSerializer
 
 class PersistNft(private val sp : SharedPreferences) : AsyncUseCase<Unit, Nft>() {
     override suspend fun run(params: Nft): Result<Unit> = Result.runCatching {
@@ -16,8 +17,10 @@ class PersistNft(private val sp : SharedPreferences) : AsyncUseCase<Unit, Nft>()
             val nftString = sp.getString(PERSISTED_NFT_KEY,"[]")
             val obj = nftString?.let { Json.decodeFromString<List<Nft>>(it) } as MutableList<Nft>
             obj.add(params)
+            val nftListSerializer: KSerializer<List<Nft>> = ListSerializer(Nft.serializer())
+            val persist = Json.encodeToString(nftListSerializer, obj)
 
-            sp.edit().putString(PERSISTED_NFT_KEY, Json.encodeToString(obj)).apply()
+            sp.edit().putString(PERSISTED_NFT_KEY, persist).apply()
         }
     }
 }

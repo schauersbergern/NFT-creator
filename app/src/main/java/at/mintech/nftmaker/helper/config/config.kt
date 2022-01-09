@@ -18,9 +18,6 @@ const val SUPPORTED_FILE_TYPES = "jpg|png|jpeg|pdf|mp4|mp3|m4a"
 const val ADDRESS_REGEX = "^0x[a-fA-F0-9]{40}"
 val ADDRESS_PREFIXES = listOf("ethereum:")
 
-val GAS_LIMIT: BigInteger = BigInteger.valueOf(20_000_000_000L)
-val GAS_PRIZE: BigInteger = BigInteger.valueOf(4300000)
-
 val CREDENTIALS: Credentials = Credentials.create(BuildConfig.PRIVATE_KEY)
 
 const val INVALID_ADDRESS = "Invalid Ethereum Address"
